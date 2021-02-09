@@ -18,7 +18,7 @@ CLIENT_ID = ENV['CLIENT_ID']
 
 post '/url', provides: :json do
   params = JSON.parse(request.body.read)
-  raise BadRequest if params['token'] != TOKEN
+  raise Sinatra::BadRequest if params['token'] != TOKEN
 
   uri = URI.parse('https://safebrowsing.googleapis.com/v4/threatMatches:find')
 
