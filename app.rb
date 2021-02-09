@@ -48,10 +48,11 @@ post '/url', provides: :json do
   raise 'API Error' if res.code[0] != '2'
 
   result = JSON.parse(res.body)
+  threat_type = if result['matches']
+                  result['matches'].first['threatType']
+                else
+                  'OK'
+                end
 
-  if result['matches']
-    result['matches'].first['threatType']
-  else
-    'OK'
-  end
+  { "threatType" => threat_type }.to_json
 end
