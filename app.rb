@@ -45,7 +45,7 @@ post '/url', provides: :json do
   }.to_json
 
   res = http.post(uri.path + "?key=#{API_KEY}", body, headers)
-  raise 'API Error' if res.code[0] != '2'
+  raise "API Error: #{res.code[0]} #{res.message}" if res.code[0] != '2'
 
   result = JSON.parse(res.body)
   threat_type = if result['matches']
